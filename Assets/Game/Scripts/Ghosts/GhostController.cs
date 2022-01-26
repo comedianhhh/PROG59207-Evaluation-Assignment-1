@@ -14,6 +14,7 @@ public class GhostController : MonoBehaviour
 	public float speed;
 
 	[SerializeField] private Vector2 moveToLocation; // Allows editing in the inspector but forces method call to set
+
 	private bool generatePath = true;
 	private bool nextPoint = true;
 	public int pathIndex = 0;
@@ -22,6 +23,7 @@ public class GhostController : MonoBehaviour
 	private bool pathCompleted = false;
 	public UnityEvent pathCompletedEvent = new UnityEvent();
 	public UnityEvent moveCompletedEvent = new UnityEvent();
+	public UnityEvent killedEvent = new UnityEvent();
 
 	void Start()
 	{
@@ -29,7 +31,12 @@ public class GhostController : MonoBehaviour
 		GameDirector.Instance.GameStateChanged.AddListener(GameStateChanged);
 	}
 
-	public void SetMoveToLocation(Vector2 location)
+    private void OnDestroy()
+    {
+		GameDirector.Instance.GameStateChanged.RemoveListener(GameStateChanged);
+    }
+
+    public void SetMoveToLocation(Vector2 location)
 	{
 		moveToLocation = location;
 		generatePath = true;
@@ -79,6 +86,7 @@ public class GhostController : MonoBehaviour
 	public void Kill()
 	{
 		_animator.SetBool("IsDead", true);
+		killedEvent.Invoke();
 	}
 
 	public void GameStateChanged(GameDirector.States _state)

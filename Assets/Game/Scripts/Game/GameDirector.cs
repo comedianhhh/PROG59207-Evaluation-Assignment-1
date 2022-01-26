@@ -11,7 +11,8 @@ public class GameDirector : Singleton<GameDirector>
 	public bool gameOver = false;
 	public float PowerPelletTime = 2.0f;
 	private float powerPelletCounter = 0.0f;
-	public List<GhostController> Ghosts = new List<GhostController>();
+	[HideInInspector] public List<GhostController> Ghosts = new List<GhostController>();
+	[HideInInspector] public PacmanController pacmanController;
 
 	public enum States
 	{

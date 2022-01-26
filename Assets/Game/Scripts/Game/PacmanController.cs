@@ -37,6 +37,12 @@ public class PacmanController : MonoBehaviour
 	{
 		_animator = GetComponent<Animator>();
 		onMoveCompleted();
+		GameDirector.Instance.pacmanController = this;
+	}
+
+    private void OnDestroy()
+    {
+		GameDirector.Instance.pacmanController = null;
 	}
 
 	void FixedUpdate ()
