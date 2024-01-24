@@ -4,15 +4,31 @@ using UnityEngine;
 
 public class GhostDieState : GhostBaseState
 {
-    // Start is called before the first frame update
-    void Start()
+    public string GoToRespawnState= "Respawn";
+    private int goToRespawnStateHash;
+
+    public float respawnDelay = 3f;
+    private float respawnTimer = 0f;
+
+    public override void Init(GameObject _owner, FSM _fsm)
     {
-        
+        base.Init(_owner, _fsm);
+        goToRespawnStateHash = Animator.StringToHash(GoToRespawnState);
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        
+        respawnTimer = respawnDelay;
+        Debug.Log("Damn I'm dead..... ");
     }
+
+    public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        respawnTimer -= Time.deltaTime;
+        if (respawnTimer <= 0f)
+        {
+            animator.SetTrigger(goToRespawnStateHash);
+        }
+    }
+
 }

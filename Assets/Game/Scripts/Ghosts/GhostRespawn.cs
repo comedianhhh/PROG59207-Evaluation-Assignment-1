@@ -4,15 +4,34 @@ using UnityEngine;
 
 public class GhostRespawn : GhostBaseState
 {
-    // Start is called before the first frame update
-    void Start()
+    public string GoToChaseState = "Chase";
+    private int gotoChaseStateHash;
+
+    public float respawnDelay = 3.0f;
+    private float respawnTimer = 0.0f;
+    public override void Init(GameObject _owner, FSM _fsm)
     {
-        
+        base.Init(_owner, _fsm);
+        gotoChaseStateHash = Animator.StringToHash(GoToChaseState);
+
+    
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        
+        Debug.Log($"{owner.name} Respawn");
+        respawnTimer = respawnDelay;
     }
+
+    public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        respawnTimer -= Time.deltaTime;
+
+        if (respawnTimer <= 0.0f)
+        {
+            animator.SetTrigger(gotoChaseStateHash);
+        }
+
+    }
+
 }

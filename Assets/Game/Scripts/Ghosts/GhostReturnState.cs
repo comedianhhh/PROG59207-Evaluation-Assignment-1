@@ -4,15 +4,30 @@ using UnityEngine;
 
 public class GhostReturnState : GhostBaseState
 {
-    // Start is called before the first frame update
-    void Start()
+    public string GoToRespawnState = "Respawn";
+    private int gotoRespawnState;
+
+    public override void Init(GameObject _owner, FSM _fsm)
     {
-        
+        base.Init(_owner, _fsm);
+        gotoRespawnState = Animator.StringToHash(GoToRespawnState);
+    }
+    
+    public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        base.OnStateEnter(animator, stateInfo, layerIndex);
+        if (_ghostController != null)
+        {
+            _ghostController.SetMoveToLocation(_ghostController.ReturnLocation);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        
+        base.OnStateUpdate(animator, stateInfo, layerIndex);
+        if (_ghostController != null)
+        {
+            _ghostController.pathCompletedEvent.AddListener(() => animator.SetTrigger(gotoRespawnState));
+        }
     }
 }
