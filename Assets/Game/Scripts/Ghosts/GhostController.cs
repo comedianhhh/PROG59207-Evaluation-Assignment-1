@@ -9,7 +9,7 @@ public class GhostController : MonoBehaviour
 {
 	public Vector2 ReturnLocation = new Vector2(0, 0);
 
-	private Animator _animator;
+	public Animator _animator;
 	public Transform PacMan;
 	public float speed;
 
@@ -87,6 +87,22 @@ public class GhostController : MonoBehaviour
 	{
 		_animator.SetBool("IsDead", true);
 		killedEvent.Invoke();
+	}
+
+	public Vector3 GetGhostPosition(string _ghostName)
+	{
+		GameObject ghostGameObject = GameObject.FindGameObjectWithTag(_ghostName);
+        if (ghostGameObject != null)
+		{
+            return ghostGameObject.transform.position;
+        }
+        else
+		{
+            Debug.LogError(_ghostName + " not found. Make sure " + _ghostName + " is in the scene and tagged appropriately.");
+            return Vector3.zero;
+        }
+	
+
 	}
 
 	public void GameStateChanged(GameDirector.States _state)

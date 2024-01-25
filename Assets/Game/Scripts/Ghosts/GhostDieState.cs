@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class GhostDieState : GhostBaseState
 {
-    public string GoToRespawnState= "Respawn";
-    private int goToRespawnStateHash;
+    public string GoToReturnState = "Return";
+    private int gotoReturnStateHash;
 
     public float respawnDelay = 3f;
-    private float respawnTimer = 0f;
+    public float respawnTimer = 0f;
 
     public override void Init(GameObject _owner, FSM _fsm)
     {
         base.Init(_owner, _fsm);
-        goToRespawnStateHash = Animator.StringToHash(GoToRespawnState);
+        gotoReturnStateHash = Animator.StringToHash(GoToReturnState);
     }
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -27,7 +27,7 @@ public class GhostDieState : GhostBaseState
         respawnTimer -= Time.deltaTime;
         if (respawnTimer <= 0f)
         {
-            animator.SetTrigger(goToRespawnStateHash);
+            fsm.ChangeState(gotoReturnStateHash);
         }
     }
 

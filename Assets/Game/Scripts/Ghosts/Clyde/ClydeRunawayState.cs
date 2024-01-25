@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CkydeRunawayState : GhostBaseState
+public class ClydeRunawayState : GhostBaseState
 {
     // Start is called before the first frame update
     void Start()

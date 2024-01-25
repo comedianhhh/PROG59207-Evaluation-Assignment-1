@@ -29,7 +29,8 @@ public class GhostRespawn : GhostBaseState
 
         if (respawnTimer <= 0.0f)
         {
-            animator.SetTrigger(gotoChaseStateHash);
+            fsm.ChangeState(gotoChaseStateHash);
+            _ghostController._animator.SetBool("IsDead", false);
         }
 
     }

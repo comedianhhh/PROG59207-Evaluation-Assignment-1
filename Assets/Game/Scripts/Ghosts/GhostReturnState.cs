@@ -27,7 +27,7 @@ public class GhostReturnState : GhostBaseState
         base.OnStateUpdate(animator, stateInfo, layerIndex);
         if (_ghostController != null)
         {
-            _ghostController.pathCompletedEvent.AddListener(() => animator.SetTrigger(gotoRespawnState));
+            _ghostController.pathCompletedEvent.AddListener(() => fsm.ChangeState(gotoRespawnState));
         }
     }
 }
