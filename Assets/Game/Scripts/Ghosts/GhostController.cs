@@ -20,7 +20,7 @@ public class GhostController : MonoBehaviour
 	public int pathIndex = 0;
 	public List<Vector3> path = new List<Vector3>();
 
-	private bool pathCompleted = false;
+	public bool pathCompleted = false;
 	public UnityEvent pathCompletedEvent = new UnityEvent();
 	public UnityEvent moveCompletedEvent = new UnityEvent();
 	public UnityEvent killedEvent = new UnityEvent();

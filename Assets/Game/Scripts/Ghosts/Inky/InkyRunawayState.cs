@@ -24,7 +24,7 @@ public class InkyRunawayState : GhostBaseState
         {
             // Calculate the opposite position to run away from Pac-Man.
             Vector3 playerPosition = _ghostController.PacMan.position;
-            Vector3 oppositePosition = CalculateOppositePosition(playerPosition);
+            Vector3 oppositePosition = CalculateInkyRunAwayPosition(playerPosition);
 
             // Set the ghost's destination to run away from Pac-Man.
             _ghostController.SetMoveToLocation(oppositePosition);
@@ -45,7 +45,7 @@ public class InkyRunawayState : GhostBaseState
         }
     }
 
-    private Vector3 CalculateOppositePosition(Vector3 targetPosition)
+    private Vector3 CalculateInkyRunAwayPosition(Vector3 targetPosition)
     {
         Vector3 ghostPosition = _ghostController.transform.position;
         Vector3 blinkyPosition = _ghostController.GetGhostPosition("Blinky"); // Get Blinky's position
