@@ -16,16 +16,16 @@ public class GhostReturnState : GhostBaseState
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateEnter(animator, stateInfo, layerIndex);
-        if (_ghostController != null)
-        {
-            _ghostController.SetMoveToLocation(_ghostController.ReturnLocation);
-            _ghostController.pathCompletedEvent.AddListener(() => fsm.ChangeState(gotoRespawnState));
-        }
- 
+        _ghostController.SetMoveToLocation(_ghostController.ReturnLocation);
+
     }
 
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateUpdate(animator, stateInfo, layerIndex);
+        if (_ghostController!=null&&_ghostController.transform.position==(Vector3)_ghostController.ReturnLocation)
+        {
+            fsm.ChangeState(gotoRespawnState);
+        }
     }
 }

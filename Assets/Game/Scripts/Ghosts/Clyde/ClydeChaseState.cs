@@ -26,7 +26,7 @@ public class ClydeChaseState : GhostBaseState
                 fsm.ChangeState(gotoRunawayStateHash);
                 return;
             }
-            _ghostController.SetMoveToLocation(_ghostController.PacMan.position);
+
 
         }
 
@@ -40,7 +40,7 @@ public class ClydeChaseState : GhostBaseState
         {
             _ghostController.pathCompletedEvent.AddListener(() => fsm.ChangeState(gotoRunawayStateHash));
         }
-
+        _ghostController.SetMoveToLocation(_ghostController.PacMan.position);
 
 
     }

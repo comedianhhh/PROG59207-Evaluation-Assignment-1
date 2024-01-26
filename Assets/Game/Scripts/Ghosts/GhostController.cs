@@ -86,6 +86,7 @@ public class GhostController : MonoBehaviour
 	public void Kill()
 	{
 		_animator.SetBool("IsDead", true);
+
 		killedEvent.Invoke();
 	}
 
