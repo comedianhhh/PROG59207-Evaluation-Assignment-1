@@ -19,15 +19,13 @@ public class GhostReturnState : GhostBaseState
         if (_ghostController != null)
         {
             _ghostController.SetMoveToLocation(_ghostController.ReturnLocation);
+            _ghostController.pathCompletedEvent.AddListener(() => fsm.ChangeState(gotoRespawnState));
         }
+ 
     }
 
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateUpdate(animator, stateInfo, layerIndex);
-        if (_ghostController != null)
-        {
-            _ghostController.pathCompletedEvent.AddListener(() => fsm.ChangeState(gotoRespawnState));
-        }
     }
 }

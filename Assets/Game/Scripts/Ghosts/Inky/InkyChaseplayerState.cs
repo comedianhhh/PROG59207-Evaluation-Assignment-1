@@ -56,16 +56,8 @@ public class InkyChasePlayerState : GhostBaseState
 
     private Vector3 CalculateInkyTarget(Vector3 playerPosition, Vector3 clydePosition)
     {
-        // Calculate the target position for Inky based on Pac-Man's position and Clyde's position.
-        // You can customize this calculation based on your game's rules.
-
-        Vector3 ghostPosition = _ghostController.transform.position;
         Vector3 blinkyPosition = _ghostController.GetGhostPosition("Blinky"); // Assuming you have a method to get Blinky's position.
-
-        // Calculate a point that is twice the distance from Blinky to Pac-Man,
-        // and then add it to Clyde's position.
         Vector3 targetPosition = clydePosition + 2 * (playerPosition - blinkyPosition);
-
         return targetPosition;
     }
 }

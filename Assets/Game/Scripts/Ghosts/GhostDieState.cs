@@ -7,8 +7,6 @@ public class GhostDieState : GhostBaseState
     public string GoToReturnState = "Return";
     private int gotoReturnStateHash;
 
-    public float respawnDelay = 3f;
-    public float respawnTimer = 0f;
 
     public override void Init(GameObject _owner, FSM _fsm)
     {
@@ -18,17 +16,15 @@ public class GhostDieState : GhostBaseState
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        respawnTimer = respawnDelay;
+        _ghostController.gameObject.GetComponent<CircleCollider2D>().enabled = false;
+        fsm.ChangeState(gotoReturnStateHash);
         Debug.Log("Damn I'm dead..... ");
     }
 
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        respawnTimer -= Time.deltaTime;
-        if (respawnTimer <= 0f)
-        {
-            fsm.ChangeState(gotoReturnStateHash);
-        }
+        
+
     }
 
 }

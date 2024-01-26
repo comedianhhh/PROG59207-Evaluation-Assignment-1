@@ -101,8 +101,6 @@ public class GhostController : MonoBehaviour
             Debug.LogError(_ghostName + " not found. Make sure " + _ghostName + " is in the scene and tagged appropriately.");
             return Vector3.zero;
         }
-	
-
 	}
 
 	public void GameStateChanged(GameDirector.States _state)

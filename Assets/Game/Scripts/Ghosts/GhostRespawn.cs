@@ -13,8 +13,7 @@ public class GhostRespawn : GhostBaseState
     {
         base.Init(_owner, _fsm);
         gotoChaseStateHash = Animator.StringToHash(GoToChaseState);
-
-    
+ 
     }
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -30,6 +29,7 @@ public class GhostRespawn : GhostBaseState
         if (respawnTimer <= 0.0f)
         {
             fsm.ChangeState(gotoChaseStateHash);
+            _ghostController.gameObject.GetComponent<CircleCollider2D>().enabled = true;
             _ghostController._animator.SetBool("IsDead", false);
         }
 
