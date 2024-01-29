@@ -25,12 +25,21 @@ public class PinkyChaseplayerState : GhostBaseState
                 fsm.ChangeState(gotoRunawayStateHash);
                 return;
             }
-            // Calculate Pinky's target position based on Pac-Man's anticipated position.
-            Vector3 playerPosition = _ghostController.PacMan.transform.position;
-            Vector3 pinkyTargetPosition = CalculatePinkyTarget(playerPosition);
 
-            // Set the ghost's destination to chase the calculated target position.
-            _ghostController.SetMoveToLocation(pinkyTargetPosition);
+            Vector3 playerPosition = _ghostController.PacMan.transform.position;
+            if (playerPosition.x >= 10 || playerPosition.x <= -10 || playerPosition.y >= 10 || playerPosition.y <= -10)
+            {
+                _ghostController.SetMoveToLocation(new Vector2(Random.Range(-10, 10), Random.Range(-10, 10)));
+            }
+            else
+            {
+                Vector3 pinkyTargetPosition = CalculatePinkyTarget(playerPosition);
+
+                _ghostController.SetMoveToLocation(pinkyTargetPosition);
+
+            }
+
+
         }
 
     }

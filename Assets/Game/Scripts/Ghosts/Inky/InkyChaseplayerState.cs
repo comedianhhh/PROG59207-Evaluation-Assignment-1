@@ -44,13 +44,22 @@ public class InkyChasePlayerState : GhostBaseState
 
         if (_ghostController != null && _ghostController.PacMan != null && clydeTransform != null)
         {
-            // Calculate the position based on Pac-Man's position and Clyde's position.
+        
             Vector3 playerPosition = _ghostController.PacMan.transform.position;
             Vector3 clydePosition = clydeTransform.position;
-            Vector3 inkyTargetPosition = CalculateInkyTarget(playerPosition, clydePosition);
+            Vector3 inkyTargetPosition=Vector3.zero;
+            if (playerPosition.x >= 10 || playerPosition.x <= -10 || playerPosition.y >= 10 || playerPosition.y <= -10)
+            {
 
-            // Set the ghost's destination to chase the calculated target position.
+                inkyTargetPosition = CalculateInkyTarget(new Vector2(Random.Range(-10, 10), Random.Range(-10, 10)), clydePosition);
+            }
+            else
+            {
+                inkyTargetPosition = CalculateInkyTarget(playerPosition, clydePosition);
+
+            }
             _ghostController.SetMoveToLocation(inkyTargetPosition);
+
         }
     }
 

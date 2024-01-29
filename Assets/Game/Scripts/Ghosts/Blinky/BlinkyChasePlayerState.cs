@@ -21,7 +21,20 @@ public class BlinkyChasePlayerState : GhostBaseState
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateUpdate(animator, stateInfo, layerIndex);
-        _ghostController.SetMoveToLocation(_ghostController.PacMan.transform.position);
+        if(_ghostController!=null&&_ghostController.PacMan!=null)
+        {
+            Vector3 playerPosition = _ghostController.PacMan.transform.position;
+            if(playerPosition.x>=10||playerPosition.x<=-10||playerPosition.y>=10||playerPosition.y<=-10)
+            {
+                _ghostController.SetMoveToLocation(new Vector2(Random.Range(-10,10),Random.Range(-10,10)));
+            }
+            else
+            {
+                _ghostController.SetMoveToLocation(_ghostController.PacMan.transform.position);
+
+            }
+
+        }
         if(GameDirector.Instance.state==GameDirector.States.enState_PacmanInvincible)
         {
             fsm.ChangeState(gotoRunawayStateHash);

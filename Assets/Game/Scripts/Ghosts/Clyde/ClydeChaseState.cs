@@ -9,6 +9,7 @@ public class ClydeChaseState : GhostBaseState
 
     public float clydeDistance = 5.0f;
 
+    public bool isOutside = false;
     public override void Init(GameObject _owner, FSM _fsm)
     {
         base.Init(_owner, _fsm);
@@ -36,12 +37,34 @@ public class ClydeChaseState : GhostBaseState
     {
         base.OnStateUpdate(animator, stateInfo, layerIndex);
 
+  
+
         if (_ghostController != null && GameDirector.Instance.state == GameDirector.States.enState_PacmanInvincible)
         {
             _ghostController.pathCompletedEvent.AddListener(() => fsm.ChangeState(gotoRunawayStateHash));
         }
-        _ghostController.SetMoveToLocation(_ghostController.PacMan.position);
+        if(_ghostController!=null&&_ghostController.PacMan!=null)
+        {
+            Vector3 playerPosition = _ghostController.PacMan.transform.position;
+            Debug.Log(playerPosition);
+            if (playerPosition.x >= 10 || playerPosition.x <= -10 || playerPosition.y >= 10 || playerPosition.y <= -10)
+            {
+                isOutside = true;
+            }
+            else
+            {
+                isOutside = false;
+            }
 
+            if (isOutside)
+            {
+                _ghostController.SetMoveToLocation(new Vector2(Random.Range(-10, 10), Random.Range(-10, 10)));
+            }
+            else
+            {
+                _ghostController.SetMoveToLocation(_ghostController.PacMan.transform.position);
 
+            }
+        }
     }
 }
