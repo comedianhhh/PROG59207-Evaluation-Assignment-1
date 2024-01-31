@@ -20,16 +20,7 @@ public class ClydeChaseState : GhostBaseState
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateEnter(animator, stateInfo, layerIndex);
-        if (_ghostController != null)
-        {
-            if((_ghostController.PacMan.position-_ghostController.transform.position).magnitude<clydeDistance)
-            {
-                fsm.ChangeState(gotoRunawayStateHash);
-                return;
-            }
 
-
-        }
 
     }
 
@@ -37,7 +28,11 @@ public class ClydeChaseState : GhostBaseState
     {
         base.OnStateUpdate(animator, stateInfo, layerIndex);
 
-  
+        if ((_ghostController.PacMan.position - _ghostController.transform.position).magnitude < clydeDistance)
+        {
+            fsm.ChangeState(gotoRunawayStateHash);
+            return;
+        }
 
         if (_ghostController != null && GameDirector.Instance.state == GameDirector.States.enState_PacmanInvincible)
         {
